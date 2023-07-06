@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class PeopleManagement {
     ArrayList<Person> personList = new ArrayList<>();
-    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Personenverwaltung");
+    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Personenverwaltung",
+      "root", "");
 
     public PeopleManagement() throws SQLException {
     }
