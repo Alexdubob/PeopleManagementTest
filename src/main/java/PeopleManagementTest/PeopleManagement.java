@@ -65,7 +65,7 @@ public class PeopleManagement {
 
     public String printDB(){
         try{
-        String query = "SELECT * FROM persons ORDER BY firstName ASC";
+        String query = "SELECT * FROM persons ORDER BY PersonID ASC";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
 

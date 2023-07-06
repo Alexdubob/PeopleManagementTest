@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        try {
+     /*   try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -15,11 +15,10 @@ public class Main {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Personenverwaltung",
                     "root", "");
 
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+*/
 
         PeopleManagement pm = new PeopleManagement();
         Scanner scanner = new Scanner(System.in);
@@ -38,10 +37,6 @@ public class Main {
             } catch (InvalidPersonNameException e) {
                 System.out.println("Fehler: " + e.getMessage());
             }
-
-
-            System.out.println("Delete a person: ");
-            String deletePerson = scanner.nextLine();
 
 
             System.out.println("Möchtest du eine weitere Person erstellen? j/n");
