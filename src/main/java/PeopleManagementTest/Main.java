@@ -28,7 +28,9 @@ public class Main {
         System.out.println("1. create person");
         System.out.println("2. looking for a person");
         System.out.println("3. delete a person");
-        option = scanner.nextInt();
+
+        String input = scanner.nextLine();
+        option = Integer.parseInt(input);
 
         if (option == 1)
             while (!done) {
@@ -46,7 +48,7 @@ public class Main {
                 }
 
 
-                System.out.println("Möchtest du eine weitere Person erstellen? j/n");
+                System.out.println("Möchtest du eine weitere Person erstellen? j/n oder :q! zum beenden");
                 String choice = scanner.nextLine();
                 if (choice.equalsIgnoreCase("n")) {
                     done = true;
@@ -57,7 +59,7 @@ public class Main {
             }
 
 
-        if (option == 2) {
+        else if (option == 2) {
             while (true) {
                 System.out.println("Welche person möchtest du suchen? :q! zum beenden!");
                 String lfPerson = scanner.nextLine();
@@ -78,7 +80,7 @@ public class Main {
             }
         }
 
-        if (option == 3) {
+        else if (option == 3) {
             System.out.println("Welche Person möchtst du löschen");
             String chosePersonDelete = scanner.nextLine();
             pm.deletePerson(chosePersonDelete);
