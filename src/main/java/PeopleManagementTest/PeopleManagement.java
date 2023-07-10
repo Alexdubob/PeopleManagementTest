@@ -1,11 +1,12 @@
 package PeopleManagementTest;
+
 import java.sql.*;
 import java.util.ArrayList;
 
 public class PeopleManagement {
     ArrayList<Person> personList = new ArrayList<>();
     Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Personenverwaltung",
-      "root", "");
+            "root", "");
 
     public PeopleManagement() throws SQLException {
     }
@@ -18,7 +19,6 @@ public class PeopleManagement {
         Statement statement = connection.createStatement();
         statement.execute(query);
         statement.close();
-
 
 
         Person person = new Person(firstName, lastName);
@@ -37,15 +37,19 @@ public class PeopleManagement {
 
     public void createPerson(String firstName, String lastName, String birthday, Gender gender) throws SQLException {
         Person person = new Person(firstName, lastName, birthday, gender);
-        String query = "INSERT INTO persons (FirstName,LastName) VALUES" + "('" + firstName + "','" + lastName + "','" + birthday + "','" +  gender + ");";
+        String query = "INSERT INTO persons (FirstName,LastName) VALUES" + "('" + firstName + "','" + lastName + "','" + birthday + "','" + gender + ");";
         Statement statement = connection.createStatement();
         statement.execute(query);
         statement.close();
         personList.add(person);
     }
 
-    public void deletePerson(Person person) {
+    public void deletePerson(String person) throws SQLException {
         personList.remove(person);
+        String query = "DELETE FROM persons WHERE firstName = '" + person +"';";
+        Statement statement = connection.createStatement();
+        statement.execute(query);
+        statement.close();
     }
 
     public boolean findPerson(String name) {
@@ -63,30 +67,29 @@ public class PeopleManagement {
         return false;
     }
 
-    public String printDB(){
-        try{
-        String query = "SELECT * FROM persons ORDER BY PersonID ASC";
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery(query);
+    public void printDB(String query) {
+        try {
+            //query = "SELECT * FROM persons ORDER BY PersonID ASC";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
 
-        int columns = rs.getMetaData().getColumnCount();
-        for (int i = 1; i <= columns; i++)
-            System.out.println(rs.getMetaData().getColumnLabel(i));
-        System.out.println();
-
-        while (rs.next()) {
+            int columns = rs.getMetaData().getColumnCount();
             for (int i = 1; i <= columns; i++)
-                System.out.println(rs.getString(i));
+                System.out.println(rs.getMetaData().getColumnLabel(i));
             System.out.println();
-        }
-        rs.close();
-        statement.close();
-        }
-        catch (SQLException e) {
+
+            while (rs.next()) {
+                for (int i = 1; i <= columns; i++)
+                    System.out.println(rs.getString(i));
+                System.out.println();
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return printDB();
     }
+
 
     public String toString() {
         String s = "";
